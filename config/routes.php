@@ -68,6 +68,9 @@ Router::scope('/', function (RouteBuilder $routes) {
     $routes->connect('/entregador/:action/*', ['controller' => 'shippers']); //Definindo rota generica
     
    // $routes->redirect('/google', '//www.google.com');//redirect
+    
+    $routes->connect('/login', ['controller' => 'user', 'action' => 'login']);
+    $routes->connect('/logout', ['controller' => 'user', 'action' => 'logout']);
 
     /**
      * Connect catchall routes for all controllers.
