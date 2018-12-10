@@ -63,6 +63,11 @@ Router::scope('/', function (RouteBuilder $routes) {
      * ...and connect the rest of 'Pages' controller's URLs.
      */
     $routes->connect('/pages/*', ['controller' => 'Pages', 'action' => 'display']);
+    
+    $routes->connect('/entregador', ['controller' => 'shippers', 'action' =>'index']); //Definindo rota
+    $routes->connect('/entregador/:action/*', ['controller' => 'shippers']); //Definindo rota generica
+    
+   // $routes->redirect('/google', '//www.google.com');//redirect
 
     /**
      * Connect catchall routes for all controllers.
@@ -86,6 +91,15 @@ Router::scope('/', function (RouteBuilder $routes) {
     $routes->fallbacks(DashedRoute::class);
 });
 
+
+Router::scope('/produtos', function(RouteBuilder $routes){
+    
+    $routes->connect('/', ['controller' => 'products', 'action' => 'index']); // /produtos/
+    
+    $routes->connect('/:action/*', ['controller' => 'products']);
+    $routes->connect('/adicionar', ['controller' => 'products', 'action' => 'add']);
+    $routes->fallbacks(DashedRoute::class);    
+});
 /**
  * If you need a different set of middleware or none at all,
  * open new scope and define routes there.
