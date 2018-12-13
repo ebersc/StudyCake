@@ -22,6 +22,18 @@ class UserController extends AppController {
      * @return \Cake\Http\Response|void
      */
     public function index() {
+//        $session = $this->request->getSession();
+//        $session = new \Cake\Http\Session;
+//        
+//        debug($session->read()['Auth']['User']);
+//        debug($session->read('Auth.User'));
+//        $session->write('teste.teste2', 'teste3');
+//        $session->write('teste1.teste1', 'teste2');
+//        $session->delete('teste');
+        
+//        $session->destroy(); //destroy  a sessão atual
+//        debug($session->consume('teste1'));
+//        exit();
         $user = $this->paginate($this->User);
 
         $this->set(compact('user'));
