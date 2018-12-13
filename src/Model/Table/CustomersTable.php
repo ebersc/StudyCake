@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Model\Table;
 
 use Cake\ORM\Query;
@@ -18,8 +19,7 @@ use Cake\Validation\Validator;
  * @method \App\Model\Entity\Customer[] patchEntities($entities, array $data, array $options = [])
  * @method \App\Model\Entity\Customer findOrCreate($search, callable $callback = null, $options = [])
  */
-class CustomersTable extends Table
-{
+class CustomersTable extends Table {
 
     /**
      * Initialize method
@@ -27,8 +27,7 @@ class CustomersTable extends Table
      * @param array $config The configuration for the Table.
      * @return void
      */
-    public function initialize(array $config)
-    {
+    public function initialize(array $config) {
         parent::initialize($config);
 
         $this->setTable('customers');
@@ -42,42 +41,45 @@ class CustomersTable extends Table
      * @param \Cake\Validation\Validator $validator Validator instance.
      * @return \Cake\Validation\Validator
      */
-    public function validationDefault(Validator $validator)
-    {
+    public function validationDefault(Validator $validator) {
         $validator
-            ->integer('CustomerID')
-            ->allowEmpty('CustomerID', 'create');
+                ->integer('CustomerID', __('CustomerID tem que ser um número'))
+                ->allowEmpty('CustomerID', 'create', __('Necessário campo CustomerID'));
 
         $validator
-            ->scalar('CustomerName')
-            ->maxLength('CustomerName', 255)
-            ->allowEmpty('CustomerName');
+                ->scalar('CustomerName', __('CustomerName tem que ser do tipo scalar'))
+                ->maxLength('CustomerName', 255, __('tamanho maximo de caracteres é 255'))
+                ->minLength('CustomerName', 3, __('O tamanho minimo de caracteres é 3'))
+                ->notEmpty('CustomerName', __('Campo obrigatório'));
 
         $validator
-            ->scalar('ContactName')
-            ->maxLength('ContactName', 255)
-            ->allowEmpty('ContactName');
+                ->scalar('ContactName', __('ContactName tem que ser do tipo scalar'))
+                ->maxLength('ContactName', 255, __('tamanho maximo de caracteres é 255'))
+                ->minLength('ContactName', 3, __('O tamanho minimo de caracteres é 3'))
+                ->notEmpty('ContactName', __('Campo obrigatório'));
 
         $validator
-            ->scalar('Address')
-            ->maxLength('Address', 255)
-            ->allowEmpty('Address');
+                ->scalar('Address')
+                ->maxLength('Address', 255)
+                ->allowEmpty('Address');
 
         $validator
-            ->scalar('City')
-            ->maxLength('City', 255)
-            ->allowEmpty('City');
+                ->scalar('City')
+                ->maxLength('City', 255)
+                ->allowEmpty('City');
 
         $validator
-            ->scalar('PostalCode')
-            ->maxLength('PostalCode', 255)
-            ->allowEmpty('PostalCode');
+                ->scalar('PostalCode')
+                ->maxLength('PostalCode', 255)
+                ->notEmpty('PostalCode');
 
         $validator
-            ->scalar('Country')
-            ->maxLength('Country', 255)
-            ->allowEmpty('Country');
+                ->scalar('Country')
+                ->maxLength('Country', 255)
+                ->inList('Country', ['BR', 'USA', 'UK', 'AR'], __('Country não listado'))
+                ->notEmpty('ContactName', __('Campo obrigatório'));
 
         return $validator;
     }
+
 }
