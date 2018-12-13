@@ -36,8 +36,8 @@ class UserController extends AppController {
 //        exit();
         
 //        $this->Cookie->write('APP.msg', 'Olá mundo');
-        $cookie = $this->Cookie->read('APP');
-        debug($cookie);       
+//        $cookie = $this->Cookie->read('APP');
+//        debug($cookie);       
         
         $user = $this->paginate($this->User);
 
