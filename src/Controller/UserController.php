@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Controller\AppController;
 use \App\Model\Entity\User;
 use \Cake\Utility\Security;
+use Cake\Log\Log;
 
 /**
  * User Controller
@@ -104,6 +105,12 @@ class UserController extends AppController {
     }
 
     public function login() {
+        
+        //Log::emergency('Ocorreu um grave erro');
+        //$this->log('mensagem', 'debug');
+        
+        $this->log('Log em user.log', 'error', 'user');
+        
         if ($this->request->is('post')) {
 
             $dados = $this->request->getData();

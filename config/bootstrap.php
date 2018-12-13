@@ -200,3 +200,26 @@ Type::build('timestamp')
 //Inflector::rules('irregular', ['red' => 'redlings']);
 //Inflector::rules('uninflected', ['dontinflectme']);
 //Inflector::rules('transliteration', ['/å/' => 'aa']);
+
+
+Log::setConfig('Orders', [
+    'className' => 'File',
+    'path' => LOGS,
+    'levels' => [],
+    'scopes' => ['orders'],
+    'file' => 'orders.log'
+]);
+
+Log::setConfig('user', function(){
+    
+    $file = new Cake\Log\Engine\FileLog([
+        'className' => 'File',
+        'path' => LOGS,
+        'levels' => [],
+        'scopes' => ['user'],
+        'file' => 'user.log'
+    ]);
+    
+    //mandar email
+    return $file;
+});
