@@ -34,6 +34,11 @@ class UserController extends AppController {
 //        $session->destroy(); //destroy  a sessão atual
 //        debug($session->consume('teste1'));
 //        exit();
+        
+//        $this->Cookie->write('APP.msg', 'Olá mundo');
+        $cookie = $this->Cookie->read('APP');
+        debug($cookie);       
+        
         $user = $this->paginate($this->User);
 
         $this->set(compact('user'));

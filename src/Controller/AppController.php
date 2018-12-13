@@ -46,6 +46,11 @@ class AppController extends Controller
             'enableBeforeRedirect' => false,
         ]);
         $this->loadComponent('Flash');
+        $this->loadComponent('Cookie');
+        $this->Cookie->configKey('APP', [
+            'path' => '/',
+            'expires' => '+ 1 day'
+        ]);
 
         /*
          * Enable the following component for recommended CakePHP security settings.
