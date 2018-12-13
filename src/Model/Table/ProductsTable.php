@@ -34,6 +34,21 @@ class ProductsTable extends Table
         $this->setTable('products');
         $this->setDisplayField('ProductID');
         $this->setPrimaryKey('ProductID');
+        
+        $this->belongsTo('suppliers', [
+           'joinType' => 'INNER',
+           'foreignKey' => 'SupplierID'
+        ]);
+        
+        /**
+         * Adicionando condição de chave estrangeira
+         * para as regras de validação do Cake
+         */
+        
+        $this->belongsTo('categories', [
+            'joinType' => 'INNER',
+            'foreignKey' => 'CategoryID'
+        ]);
     }
 
     /**
@@ -63,13 +78,40 @@ class ProductsTable extends Table
 
         $validator
             ->scalar('Unit')
-            ->maxLength('Unit', 255)
-            ->allowEmpty('Unit');
+            ->maxLength('Unit', 255);
 
         $validator
             ->decimal('Price')
+            ->greaterThan('Price', 0, 'O preço deve ser maior que zero.')
             ->allowEmpty('Price');
 
         return $validator;
+    }
+    
+    /**
+     * Criando nossas regras
+     * 
+     * @param RulesChecker $rules
+     * @return RulesChecker
+     */
+    public function buildRules(RulesChecker $rules) {
+        parent::buildRules($rules);
+        
+        $rules->add($rules->isUnique(['ProductID'], 'ProductID já existe'));
+        
+        $rules->add($rules->existsIn('SupplierID', 'suppliers', 'SupplierID não esta na lista'));
+        
+        $rules->add($rules->existsIn('CategoryID', 'categories', 'CategoryID não esta na lista'));
+        
+        $rules->add(function(\App\Model\Entity\Product $entity){
+            
+            return !$entity->isDirty('Unity'); //Se tiver sido alterado não dara erro
+           
+        }, 'verifica_produto', [
+            'errorField' => 'Unit',
+            'message' => 'Campo Unit deve ser alterado'
+        ]);
+        
+        return $rules;
     }
 }
