@@ -17,13 +17,14 @@
     </ul>
 </nav>
 <div class="user form large-9 medium-8 columns content">
-    <?= $this->Form->create($user) ?>
+    <?= $this->Form->create($user, ['type' => 'file']) ?>
     <fieldset>
         <legend><?= __('Edit User') ?></legend>
         <?php
             echo $this->Form->control('nome');
             echo $this->Form->control('email');
             echo $this->Form->control('password');
+            echo $this->Form->control('foto', ['type' => 'file']);
         ?>
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>

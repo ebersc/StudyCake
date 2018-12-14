@@ -65,6 +65,18 @@ class UserTable extends Table
             ->scalar('password')
             ->maxLength('password', 255)
             ->allowEmpty('password');
+        
+        $validator
+                ->add('foto', [
+                    'mimeType' =>[
+                        'rule' => ['mimeType',['image/png', 'image/jpg', 'image/gif']],
+                    'message' => 'Arquivo de imagem somente nos formatos: png, jpg, gif'
+                    ],
+                    'fileSize' => [
+                        'rule' => ['fileSize', '<', '10B'],
+                        'message' => 'Tamanho do arquivo até 5MB'
+                    ]
+                ]);
 
         return $validator;
     }

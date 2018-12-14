@@ -68,9 +68,16 @@ class UserController extends AppController {
         $user = $this->User->newEntity();
         if ($this->request->is('post')) {
             $user = $this->User->patchEntity($user, $this->request->getData());
+            
+            if($this->request->getData()['foto']){
+                $user->foto = $this->request->getData()['foto']['name'];
+            }
+            
             if ($this->User->save($user)) {
                 $this->Flash->success(__('The user has been saved.'));
 
+                $this->uploadFoto($user->email, $this->request->getData()['foto']);
+                
                 return $this->redirect(['action' => 'index']);
             }
             $this->Flash->error(__('The user could not be saved. Please, try again.'));
@@ -148,4 +155,12 @@ class UserController extends AppController {
         return $this->redirect($this->Auth->logout());
     }
 
+    private function uploadFoto(string $userEmail, array $foto){
+        $path = WWW_ROOT . $userEmail;
+        $userPath = new \Cake\Filesystem\Folder($path, true);
+        
+        $file = new \Cake\Filesystem\File($foto['tmp_name']);
+        $file->copy($userPath->path . DS . $foto['name']);
+        $file->close();
+    }
 }
