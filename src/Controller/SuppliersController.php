@@ -12,6 +12,14 @@ use App\Controller\AppController;
  */
 class SuppliersController extends AppController
 {
+    public $paginate = [
+        'fields' => ['Suppliers.SupplierID', 'Suppliers.SupplierName'],
+        'limit' => 15,
+        'order' => [
+            'Suppliers.SupplierName' => 'desc',
+            'Suppliers.SupplierID' => 'asc'
+        ]
+    ];
 
     /**
      * Index method
@@ -20,7 +28,12 @@ class SuppliersController extends AppController
      */
     public function index()
     {
-        $suppliers = $this->paginate($this->Suppliers);
+        $suppliers = $this->paginate($this->Suppliers, [
+            'order' => [],
+            'conditions' => [
+                'Suppliers.SupplierID > ' => 10
+            ]
+        ]);
 
         $this->set(compact('suppliers'));
     }

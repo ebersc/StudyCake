@@ -29,6 +29,12 @@ use \Cake\Controller\Component\AuthComponent;
 class AppController extends Controller
 {
 
+//    public $paginate = [
+//        'limit' => 5
+//    ];
+        
+    
+    
     /**
      * Initialization hook method.
      *
@@ -68,7 +74,7 @@ class AppController extends Controller
             'logoutRedirect' => ['controller' => 'user', 'action' => 'logout'],
         ]);
         
-        $this->Auth->config('authenticate', [
+        $this->Auth->setConfig('authenticate', [
         AuthComponent::ALL => ['userModel' => 'user']
         ]);
     }
