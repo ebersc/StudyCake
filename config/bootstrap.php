@@ -223,3 +223,5 @@ Log::setConfig('user', function(){
     //mandar email
     return $file;
 });
+
+Cache::disable();

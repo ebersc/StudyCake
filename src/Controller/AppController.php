@@ -52,6 +52,9 @@ class AppController extends Controller
             'enableBeforeRedirect' => false,
         ]);
         $this->loadComponent('Flash');
+        
+        \Cake\I18n\I18n::setLocale('pt_BR');
+        
         $this->loadComponent('Cookie');
         $this->Cookie->configKey('APP', [
             'path' => '/',
